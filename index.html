@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kamys · 15 Anos · Oceano Elegante</title>
+  <meta name="description" content="Convite da festa de 15 anos da Kamys — Sábado, 29 de Agosto de 2026 às 13h. Confirme sua presença!">
+
+  <!-- Open Graph — TROCAR og:image após deploy no Vercel -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kamys · 15 Anos · Oceano Elegante">
+  <meta property="og:description" content="Sábado, 29 de Agosto de 2026 às 13h — Confirme sua presença!">
+  <meta property="og:image" content="https://SEU-DOMINIO.vercel.app/assets/og-convite.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+  <div class="film-grain" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <!-- ===================== CAPA — imagem tela cheia + barra inferior ===================== -->
+  <section class="splash" id="splash">
+    <div class="splash__poster">
+      <picture class="splash__picture">
+        <source media="(min-width: 768px)" srcset="assets/og-convite.png">
+        <img src="assets/og-convite-vertical.png" alt="Kamys · XV · 15 Anos" class="splash__cover-img">
+      </picture>
+    </div>
+
+    <div class="splash__dock">
+      <button class="splash__enter" id="openBtn" type="button">
+        <span class="splash__enter-text">Abrir convite</span>
+        <span class="splash__enter-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== CONTEÚDO (template mobile / desktop via CSS) ===================== -->
+  <main class="site" id="mainContent">
+
+    <!-- Hero data -->
+    <section class="block block--hero reveal" id="convite">
+      <div class="block__wrap">
+        <p class="hero__lead reveal-child">
+          Essa é uma data que será comemorada com pessoas especiais, aguardo sua presença!
+        </p>
+
+        <div class="hero__date-card reveal-child">
+          <img src="imgs/cavalo-marinho.png" alt="" class="hero__date-deco hero__date-deco--seahorse" loading="lazy" aria-hidden="true">
+          <img src="imgs/tartaruga-inclinada.png" alt="" class="hero__date-deco hero__date-deco--turtle" loading="lazy" aria-hidden="true">
+
+          <div class="hero__date-top">
+            <span class="hero__weekday">Sábado</span>
+          </div>
+          <div class="hero__day-row">
+            <span class="hero__day">29</span><span class="hero__day-month">/agosto</span>
+          </div>
+          <span class="hero__time">às 13h</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ações rápidas: Local + RSVP -->
+    <section class="block block--actions reveal" id="acoes">
+      <div class="block__wrap">
+        <div class="action-grid">
+
+          <article class="action-card reveal-child" id="local">
+            <div class="action-card__head">
+              <span class="action-card__num">01</span>
+              <h2 class="action-card__title">Local</h2>
+            </div>
+            <img src="imgs/tartaruga-horizontal.png" alt="" class="action-card__img" loading="lazy" aria-hidden="true">
+            <p class="action-card__text">
+              Rua Mucuripe, 3<br>
+              Salão Três Corações<br>
+              <small>(ao lado da Escola Ernesto)</small>
+            </p>
+            <a href="https://maps.google.com/?q=Rua+Mucuripe+3+Salão+Três+Corações" target="_blank" rel="noopener" class="btn btn--outline">
+              Ver no mapa →
+            </a>
+          </article>
+
+          <article class="action-card action-card--accent reveal-child" id="rsvp">
+            <div class="action-card__head">
+              <span class="action-card__num">02</span>
+              <h2 class="action-card__title">Presença</h2>
+            </div>
+            <img src="imgs/estrela-do-mar.png" alt="" class="action-card__img action-card__img--star" loading="lazy" aria-hidden="true">
+            <p class="action-card__text">Confirme pelo WhatsApp, sua resposta é muito importante!</p>
+            <!-- TROCAR: número WhatsApp -->
+            <a href="https://wa.me/5521988240767?text=Ol%C3%A1!%20Confirmo%20presen%C3%A7a%20na%20festa%20da%20Kamys!" target="_blank" rel="noopener" class="btn btn--whatsapp">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Confirmar presença
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Presentes -->
+    <section class="block block--gifts reveal" id="presentes">
+      <div class="block__wrap">
+        <header class="block__header reveal-child">
+          <span class="block__label">Presentes</span>
+          <h2 class="block__title">Sugestões</h2>
+          <p class="block__subtitle"><em>São apenas sugestões — fique à vontade!</em></p>
+        </header>
+
+        <div class="gifts-card reveal-child">
+          <img src="imgs/cavalo-marinho.png" alt="" class="gifts-card__deco gifts-card__deco--seahorse" loading="lazy" aria-hidden="true">
+          <img src="imgs/agua-viva.png" alt="" class="gifts-card__deco gifts-card__deco--jelly" loading="lazy" aria-hidden="true">
+
+          <ul class="gift-list">
+          <li class="gift-item reveal-child">
+            <span class="gift-item__tag">Roupas</span>
+            <p>Blusas/vestidos (tam. P), shorts (tam. 32 ou 34)</p>
+          </li>
+          <li class="gift-item reveal-child">
+            <span class="gift-item__tag">Acessórios</span>
+            <p>Colar, pulseira, bracelete, relógios, brincos, pregadeira</p>
+          </li>
+          <li class="gift-item reveal-child">
+            <span class="gift-item__tag">Calçados</span>
+            <p>Chinelo, sandália, tênis (tam. 34/35)</p>
+          </li>
+          <li class="gift-item reveal-child">
+            <span class="gift-item__tag">Cosméticos</span>
+            <p>Maquiagem, body splash, perfume (preferência doce)</p>
+          </li>
+          <li class="gift-item reveal-child">
+            <span class="gift-item__tag">Outros</span>
+            <p>Qualquer coisa do Stray Kids, livros, urso de pelúcia, itens de cabelo</p>
+          </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Importante -->
+    <section class="block block--important reveal" id="importante">
+      <div class="block__wrap">
+        <h2 class="block__title block__title--gold reveal-child">Importante!!</h2>
+
+        <div class="important__box reveal-child">
+          <img src="imgs/concha.png" alt="" class="important__deco important__deco--l" loading="lazy" aria-hidden="true">
+          <img src="imgs/estrela-do-mar.png" alt="" class="important__deco important__deco--r" loading="lazy" aria-hidden="true">
+          <p>Usem roupas azuis de qualquer tom, pois a festa terá essas cores.</p>
+          <p><strong>Traje:</strong> venham lindos e arrumados. Levem roupa de banho se quiserem entrar na piscina.</p>
+          <p>Curtam, comam bastante, mas com respeito e cuidado com todos. Venham com energia, sorriso e vontade de aproveitar!</p>
+        </div>
+
+        <p class="important__stamp reveal-child">CONVIDADO NÃO CONVIDA!!!</p>
+
+        <p class="important__kiss reveal-child">Estarei esperando meus presentes 😘</p>
+        <p class="important__sign reveal-child">Kamys</p>
+      </div>
+    </section>
+
+    <!-- Regras -->
+    <section class="block block--rules reveal" id="regras">
+      <div class="block__wrap">
+        <header class="block__header reveal-child">
+          <span class="block__label">Antes de vir</span>
+          <h2 class="block__title">Regras da festa</h2>
+        </header>
+
+        <ul class="rules__list reveal-child">
+          <img src="imgs/tartaruga-horizontal.png" alt="" class="rules__deco" loading="lazy" aria-hidden="true">
+            <li>Leve roupa de banho e uma roupa arrumada para o parabéns</li>
+            <li>Não roube docinho da mesa</li>
+            <li>Não leve nada para comer/beber</li>
+            <li>Não tenha vergonha de socializar</li>
+            <li>Traga protetor solar</li>
+            <li><strong>Importante:</strong> traga sua felicidade e ânimo!</li>
+            <li>Traga seu kit de banho (toalha, roupa íntima extra, roupa extra, etc.)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Encerramento -->
+    <section class="block block--closing reveal" id="encerramento">
+      <div class="closing">
+        <img src="imgs/concha.png" alt="" class="closing__deco closing__deco--1" loading="lazy" aria-hidden="true">
+        <img src="imgs/estrela-do-mar.png" alt="" class="closing__deco closing__deco--2" loading="lazy" aria-hidden="true">
+
+        <h2 class="closing__title reveal-child">Obrigada pela presença!!</h2>
+        <p class="closing__text reveal-child">
+          Agradeço de coração por tirarem um pouco do seu tempo para estarem aqui em um dia tão especial. Cada um que veio foi lembrado com muito carinho e amor.
+        </p>
+      </div>
+
+      <footer class="footer">
+        <span class="footer__xv">XV</span>
+        <span class="footer__name">Kamys · 2026</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- TROCAR: assets/musica-fundo.mp3 -->
+  <button class="audio-toggle" id="audioToggle" type="button" aria-label="Música" title="Música">
+    <svg class="audio-toggle__on" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+    </svg>
+    <svg class="audio-toggle__off" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" hidden>
+      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+    </svg>
+  </button>
+  <audio id="bgAudio" loop preload="none">
+    <source src="assets/musica-fundo.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
