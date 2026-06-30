@@ -38,6 +38,64 @@
   openBtn.addEventListener('click', openInvite);
   document.body.style.overflow = 'hidden';
 
+  /* ---- Marque na agenda (.ics — iPhone, Android, Google, Outlook, Apple) ---- */
+  var addToCalendarBtn = document.getElementById('addToCalendar');
+
+  function escapeICS(text) {
+    return String(text)
+      .replace(/\\/g, '\\\\')
+      .replace(/;/g, '\\;')
+      .replace(/,/g, '\\,')
+      .replace(/\n/g, '\\n');
+  }
+
+  function buildICS() {
+    var lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Kamys//15 Anos//PT',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VTIMEZONE',
+      'TZID:America/Sao_Paulo',
+      'BEGIN:STANDARD',
+      'DTSTART:19700101T000000',
+      'TZOFFSETFROM:-0300',
+      'TZOFFSETTO:-0300',
+      'TZNAME:-03',
+      'END:STANDARD',
+      'END:VTIMEZONE',
+      'BEGIN:VEVENT',
+      'UID:kamys-15-anos-20260829@aniversario-kamilly',
+      'DTSTAMP:20260101T120000Z',
+      'DTSTART;TZID=America/Sao_Paulo:20260829T130000',
+      'DTEND;TZID=America/Sao_Paulo:20260829T200000',
+      'SUMMARY:' + escapeICS('Kamys · 15 Anos'),
+      'DESCRIPTION:' + escapeICS('Festa de 15 anos da Kamys. Traje: roupas azuis.'),
+      'LOCATION:' + escapeICS('Rua Mucuripe, 3, Salão Três Corações (ao lado da Escola Ernesto)'),
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ];
+    return lines.join('\r\n');
+  }
+
+  function downloadICS() {
+    var blob = new Blob([buildICS()], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'kamys-15-anos.ics';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  }
+
+  if (addToCalendarBtn) {
+    addToCalendarBtn.addEventListener('click', downloadICS);
+  }
+
   /* ---- Scroll progress ---- */
   function onScroll() {
     var scrollTop = window.scrollY;

@@ -26,7 +26,6 @@
   --wrap-desktop: min(860px, 92vw);
   --pad-mobile: 1.25rem;
   --pad-desktop: 2.5rem;
-  --splash-dock-h: 96px;
   /* Celular: 9:16 · PC: 16:9 (1920×1080) */
   --splash-aspect-mobile: 9 / 16;
   --splash-aspect-desktop: 16 / 9;
@@ -95,14 +94,12 @@ body::before {
 }
 
 /* ============================================================
-   SPLASH — imagem full + dock inferior (fora da imagem)
+   SPLASH — imagem full, toque em qualquer lugar
    ============================================================ */
 .splash {
   position: fixed;
   inset: 0;
   z-index: 9000;
-  display: flex;
-  flex-direction: column;
   height: 100dvh;
   background: var(--navy-deep);
   overflow: hidden;
@@ -116,15 +113,20 @@ body::before {
 }
 
 .splash__poster {
-  flex: 1;
-  min-height: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
   overflow: hidden;
   background: var(--navy-deep);
 }
 
 .splash__picture {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 }
@@ -133,82 +135,78 @@ body::before {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
   opacity: 0;
   animation: coverIn 1.1s var(--ease) 0.15s forwards;
 }
 
-/* Celular 9:16 — prioriza topo (nome Kamys) */
-@media (max-width: 767px) {
-  .splash__cover-img {
-    object-position: center top;
-  }
-}
-
 @keyframes coverIn {
-  from { opacity: 0; transform: scale(1.03); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.splash__dock {
-  flex-shrink: 0;
-  height: var(--splash-dock-h);
-  padding: 0 1.5rem env(safe-area-inset-bottom, 0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--navy-deep);
-  border-top: 1px solid rgba(168, 199, 232, 0.12);
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+.splash__tap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.splash__enter {
+.splash__hint {
+  position: absolute;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.35rem;
-  width: 100%;
-  max-height: 100%;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--ocean-light);
-  opacity: 0;
-  animation: riseIn 0.9s var(--ease) 0.8s forwards;
-}
-
-.splash__enter-text {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.splash__enter-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(168, 199, 232, 0.35);
-  background: rgba(27, 58, 107, 0.6);
+  padding: 0.5rem 1rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(10, 31, 68, 0.42);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  animation: bounceDown 2s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  animation: hintIn 1s var(--ease) 1.2s forwards, hintFloat 3s ease-in-out 2.2s infinite;
 }
 
-@keyframes bounceDown {
+.splash__hint-hand {
+  color: rgba(255, 255, 255, 0.88);
+  animation: handTap 2.2s ease-in-out infinite;
+}
+
+.splash__hint-text {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+
+@keyframes handTap {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+  40% { transform: translateY(3px); }
+  60% { transform: translateY(1px); }
 }
 
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes hintFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+@keyframes hintIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ============================================================
@@ -286,6 +284,15 @@ body::before {
   color: var(--pearl-dim);
   text-align: center;
   margin-bottom: 2.5rem;
+}
+
+.hero__date-group {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .hero__date-card {
@@ -384,11 +391,30 @@ body::before {
   color: var(--gold);
 }
 
+.btn--calendar {
+  display: flex;
+  width: 100%;
+  margin-top: 1.25rem;
+  color: var(--gold-light);
+  border: 1px solid rgba(201, 169, 98, 0.45);
+  background: rgba(27, 58, 107, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn--calendar:hover {
+  box-shadow: 0 4px 24px rgba(201, 169, 98, 0.15);
+}
+
 /* ---- Action cards ---- */
 .action-grid {
   display: flex;
   flex-direction: column;
   gap: clamp(0.85rem, 3vw, 1.25rem);
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .action-card {
@@ -823,8 +849,6 @@ body::before {
   }
 
   .hero__date-card {
-    max-width: 420px;
-    margin: 0 auto;
     padding: 3rem 2rem 2.5rem;
   }
 
@@ -832,27 +856,18 @@ body::before {
     font-size: clamp(6rem, 10vw, 8rem);
   }
 
-  /* Local + WhatsApp lado a lado */
+  /* Local centralizado */
   .action-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    align-items: stretch;
+    max-width: 480px;
   }
 
   .action-card {
     display: flex;
     flex-direction: column;
-    min-height: 260px;
   }
 
   .action-card__text {
     flex: 1;
-  }
-
-  .btn--whatsapp {
-    width: 100%;
-    margin-top: auto;
   }
 
   .btn--outline {
